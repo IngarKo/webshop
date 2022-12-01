@@ -1,0 +1,88 @@
+.product{
+    display: flex; /* Vasakult-paremale*/
+    justify-content: space-between;  /* tyhjuse ruumijaotus*/
+    margin: 0 10%;
+    border-bottom: 1px solid lightblue;
+    padding: 10px 0;
+
+}
+
+.image {
+    width: 100px;
+    height: 80px;
+
+}
+
+.name {
+    width: 200px;
+
+}
+
+.price{
+    width: 80px;
+
+}
+
+.quantity {
+    width: 110px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.sum {
+    width: 100px;
+
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+
+
+}
+
+.button:hover {
+    opacity: 0,7;
+    cursor: pointer;
+}
+
+.button:active {
+    padding: 1px;
+
+}
+
+
+.eur {
+    margin: 0.5% 0;
+    width: 15px;
+    height: 15px;
+}
+
+.cart-top {
+    margin-left: 10%;
+
+}
+
+.cart-bottom {
+    margin-left: 10%;
+}
+
+.empty-cart {
+    width: 20px;
+    height: 20px;
+}
+
+.empty-cart:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.empty {
+    border-radius: 1px solid lightblue;
+}
+
+.emptyCart{
+    width: auto;
+    height: auto;
+  };

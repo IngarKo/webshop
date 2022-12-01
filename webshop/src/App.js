@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage';
 import Shops from './pages/Shops';
 import SingleProduct from './pages/SingleProduct';
 import { useTranslation } from 'react-i18next';
+import { ContactUs } from './pages/ContactUs';
 
 
 function App() {
@@ -26,17 +27,18 @@ function App() {
   return (
     <div>
 
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="blue">
         <Container>
           <Navbar.Brand as={Link} to="/">Webshop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/admin">{t('admin')}</Nav.Link>
             <Nav.Link as={Link} to="/shops">{t('shops')}</Nav.Link>
             <Nav.Link as={Link} to="/cart"> {t('cart')}</Nav.Link>
+            <Nav.Link as={Link} to="/contact"> {t('contact')}</Nav.Link>
           </Nav>
           <img className='lang' src="/estonia.png" alt="" onClick={() => changeLang("ee")}/>
-          <div>|</div>
           <img className='lang' src="/uk.png" alt="" onClick={() => changeLang("en")}/>
+          <img className='lang' src="/russia.png" alt="" onClick={() => changeLang("ru")}/>
         </Container>
         
       </Navbar>
@@ -46,9 +48,10 @@ function App() {
         <Route path='cart' element={<Cart/>} />
         <Route path='shops' element={<Shops/>} />
         <Route path='admin' element={<AdminHome/>} />
-        <Route path='product' element={<SingleProduct/>} />
+        <Route path='product/:id' element={<SingleProduct/>} />
+        <Route path='contact' element={<ContactUs/>} />
         <Route path='admin/add-product' element={<AddProduct/>} />
-        <Route path='admin/edit-product' element={<EditProduct/>} />
+        <Route path='admin/edit-product/:id' element={<EditProduct/>} />
         <Route path='admin/maintain-products' element={<MaintainProduct/>} />
         <Route path='admin/maintain-shops' element={<MaintainShops/>} />
         

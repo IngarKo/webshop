@@ -1,0 +1,18 @@
+{
+"translation": {
+    "admin": "Admin view",
+    "shops": "Our shops",
+    "cart": "Cart",
+    "add-to-cart": "Add to cart",
+    "sort-az": "Sort AZ",
+    "sort-za": "Sort ZA",
+    "sort-price-as": "Sort lowest price first",
+    "sort-price-des": "Sort highest price first ",
+    "product-added": "Successfully added to cart!",
+    "motorcycle": "motorcycle",
+    "motors": "cars",
+    "snowboard": "Snowboards",
+    "empty-cart": "Empty cart",
+    "tk": "pcs",
+    "contact": "Contact Us"
+  }}

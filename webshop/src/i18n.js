@@ -1,29 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import english from "./i18n/english.json"
+import estonia from "./i18n/estonia.json"
+import russia from "./i18n/russian.json"
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
-  en: {
-    translation: {
-      "admin": "Admin view",
-      "shops": "Our shops",
-      "cart": "Cart",
-      "add-to-cart": "Add to cart",
-      "sort-az": "Sort AZ",
-    }
-  },
-  ee: {
-    translation: {
-        "admin": "Admin vaade",
-        "shops": "Meie poed",
-        "cart": "Ostukorvi",
-        "add-to-cart": "Lisa ostukorvi",
-        "sort-az": "Sorteeri AZ",
-    }
+  en: english,
+  ee: estonia,
+  ru: russia
+
   }
-};
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next

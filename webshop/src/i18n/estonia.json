@@ -1,0 +1,18 @@
+{
+    "translation": {
+        "admin": "Admin vaade",
+        "shops": "Meie poed",
+        "cart": "Ostukorvi",
+        "add-to-cart": "Lisa ostukorvi",
+        "sort-az": "Sorteeri AZ",
+        "sort-za": "Sorteeri ZA",
+        "sort-price-as": "Odavamad ees",
+        "sort-price-des": "Kallimad ees",
+        "product-added": "Edukalt ostukorvi lisatud!",
+        "motorcycle": "mootorrattad",
+        "motors": "autod",
+        "snowboard": "lumelauad",
+        "empty-cart": "Tühjenda ostukorv ",
+        "tk": "tk",
+        "contact": "Võtke meiega ühendust"
+    }}

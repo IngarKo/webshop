@@ -1,0 +1,12 @@
+.singleProductimg{
+    margin: 10% 10%;
+    float: right;
+    width: 400px;
+    height: 400px;
+};
+
+.text {
+    justify-content: space-between;
+    margin: 20% 10%;
+    display: flex;
+};
