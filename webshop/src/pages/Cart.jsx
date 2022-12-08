@@ -5,10 +5,8 @@ import "../css/Cart.css";
 
 function Cart() {
     const { t } = useTranslation();
-    const [parcelMachines, setParcelMachines] = useState([]);
-
     const [cart, setCart] = useState(JSON.parse(sessionStorage.getItem ("cart")) || []);
-
+    const [parcelMachines, setParcelMachines] = useState([]);
     
     
 
@@ -72,6 +70,33 @@ function Cart() {
         
     };
 
+    const pay = () => {
+        const paymentUrl = "https://igw-demo.every-pay.com/api/v4/payments/oneoff"
+
+        const paymentData = {
+            "api_username": "92ddcfab96e34a5f",
+            "account_name": "EUR3D1",
+            "amount": calculateCartSum(),
+            "order_reference": Math.random()*9999999,
+            "nonce": Math.random()*9999999+ new Date(),
+            "timestamp": new Date(),
+            "customer_url": "https://proov-html.web.app/"
+        };
+
+        const headersData = {
+            "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA==",
+            "Content-Type": "application/json"
+        };
+
+        fetch(paymentUrl, {
+            "method": "POST", 
+            "body": JSON.stringify(paymentData), 
+            "headers": headersData
+        })
+        .then(res => res.json())
+        .then(json => window.location.href = json.payment_link)
+    };
+
     return ( 
     <div>
         <div className="cart-top" >
@@ -105,14 +130,22 @@ function Cart() {
             
 
         </div>
-        )}</div>
+        
+        )}
         <div>
-            {parcelMachines.map((element, index) =>
-             <div key={index}>
-                {element.NAME}
-                </div>)}
+            <button onClick={pay} >Maksma</button>
         </div>
+        </div>
+        <select>
+            {parcelMachines
+            .filter(element => element.A0_NAME === "EE")
+            .map((element, index) =>
+             <option key={index}>
+                {element.NAME}
+                </option>)}
+        </select>
         <div  >
+        
        
         { cart.length > 0 && <div className="cart-bottom"  >Total price {calculateCartSum()} <img className="eur" src="/euro.png" alt="" /> </div>}
         </div>

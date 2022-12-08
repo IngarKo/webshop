@@ -14,6 +14,7 @@ import Shops from './pages/Shops';
 import SingleProduct from './pages/SingleProduct';
 import { useTranslation } from 'react-i18next';
 import { ContactUs } from './pages/ContactUs';
+import MaintainCategories from './pages/admin/MaintainCategories';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
         <Route path='admin/edit-product/:id' element={<EditProduct/>} />
         <Route path='admin/maintain-products' element={<MaintainProduct/>} />
         <Route path='admin/maintain-shops' element={<MaintainShops/>} />
+        <Route path='admin/maintain-categories' element={<MaintainCategories/>} />
         
       </Routes>
     </div>

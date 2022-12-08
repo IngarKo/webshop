@@ -1,15 +1,25 @@
 
-import productsFromFile from "../data/products.json"
+import config from "../data/config.json"
 import Button from "react-bootstrap/Button"
 import { useTranslation } from 'react-i18next';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 
 function HomePage() {
     const { t } = useTranslation();
+    const [products, changeProducts] = useState([]); // mida n2idatakse v2lja
+    const [dbProducts, setDbProducts] = useState([]); // orginaalsed andmebaasi tooted, mida ma ei muuda kunagi
+    
 
-    const [products, changeProducts] = useState(productsFromFile) || [];
+    useEffect(() => {
+        fetch(config.productsDbUrl)
+            .then(res => res.json())
+            .then(json => {
+                changeProducts(json);
+                setDbProducts(json);
+            });
+    }, []);
 
                                 // VANA: [{id: 1, name: "Nobe", price: 12, ...}, {id: 1, name: "Nobe", price: 12, ...}, {id: 1, name: "Nobe", price: 12, ...}]
                     // UUS: [{"product": {id: 1, name: "Nobe", price: 12, ...}, "quantity": 2}]
@@ -45,7 +55,7 @@ function HomePage() {
                     
                 
 
-                    //     vaja teha: useState, mis võtab algväärtuse productsFromFile-st
+                    //     vaja teha: useState, mis võtab algväärtuse products-st
                     // järgmiseks sorteerida
                     // ja siis useState funktsiooni abil väärtusi siin lehel muuta
 
@@ -74,12 +84,12 @@ function HomePage() {
                 };
 
                 const filterByCategory = (i) => {
-                    const outcome = productsFromFile.filter(element => element.category.match (i));
+                    const outcome = dbProducts.filter(element => element.category.match (i));
                     changeProducts(outcome);
                     return
                 };
 
-                const categories = [...new Set (productsFromFile.map(element => element.category))];
+                const categories = [...new Set (dbProducts.map(element => element.category))];
 
 
                
@@ -90,9 +100,9 @@ function HomePage() {
         <button onClick={() => sortZA ()}>{t("sort-za")}</button>
         <button onClick={() => sortPriceAsc ()}>{t("sort-price-as")}</button> 
         <button onClick={() => sortPriceDesc ()}>{t("sort-price-des")}</button>
-        <div>{productsFromFile.length}</div>
+        <div>{products.length}</div>
         {/* kategooriad peavad siia tulema dünaamiliselt (.map() abil) */}
-        {/* {productsFromFile.map((element, index) => 
+        {/* {products.map((element, index) => 
             <div key={index}>
                 
                 

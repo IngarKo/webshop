@@ -1,11 +1,20 @@
 import { useParams } from "react-router-dom";
-import productsFromFile from "../data/products.json";
+import config from "../data/config.json"
 import "../css/SingleProduct.css";
+import { useEffect, useState } from "react";
 
 function SingleProduct() {
+    const [dbProducts, setDbProducts] = useState([]); 
     const {id} = useParams();
-    const productsFound = productsFromFile.find(element => element.id === Number(id));
+    const productsFound = dbProducts.find(element => element.id === Number(id));
     
+    
+
+    useEffect(() => {
+        fetch(config.productsDbUrl)
+            .then(res => res.json())
+            .then(json => setDbProducts(json));
+    }, []);
 
 
     return ( 

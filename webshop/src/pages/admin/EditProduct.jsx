@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 
 function EditProduct() {
     const {id} =useParams();
-    const productsFound = productsFromFile.find(element => element.id === Number(id));
-    const index = productsFromFile.indexOf(productsFound);
+    const [dbProducts, setDbProducts] = useState([]); 
+    const productsFound = dbProducts.find(element => element.id === Number(id));
+    //const index = dbProducts.indexOf(productsFound);
     const navigate = useNavigate();
 
     const idRef = useRef();
@@ -17,7 +18,7 @@ function EditProduct() {
     const activeRef = useRef();
 
     const changeProduct = () => {
-        const updateProduct = {
+        const newProduct = {
             "id": Number(idRef.current.value),
             "name": nameRef.current.value,
             "price": Number(priceRef.current.value),
@@ -26,8 +27,10 @@ function EditProduct() {
             "description": descriptionRef.current.value,
             "active": activeRef.current.checked,
         }
-        productsFromFile[index] = updateProduct;
-        navigate("/admin/maintain-products")
+        dbProducts.push(newProduct);
+        fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+            .then(() => navigate("/admin/maintain-products"));
+        
     };
 
     // onClick={} <- pealevajutades paneb funktsiooni k2ima
@@ -36,12 +39,21 @@ function EditProduct() {
 
     const [idUnique, setIdUnique] = useState(true)
 
+   
+    
+
+    useEffect(() => {
+        fetch(config.productsDbUrl)
+            .then(res => res.json())
+            .then(json => setDbProducts(json));
+    }, []);
+
     const checkIdUniqueness = () => {
         // if (id === idRef.current.value) {
         //     setIdUnique(true);
         //     return; // <---- 2ra mine siit edasi selle funktsiooni sees
         // }
-        const found = productsFromFile.find(element => element.id === Number(idRef.current.value) );
+        const found = dbProducts.find(element => element.id === Number(idRef.current.value) );
         if (found === undefined) {
             setIdUnique(true);
             // console.log("Leitud toode tyhjus - ei leidnud kedagi sellise ID-ga")
@@ -58,6 +70,21 @@ function EditProduct() {
             //   setIdUnique(false);
             // }
 
+            const [categories, setCategories] = useState([]);
+
+
+            useEffect(() => {
+                fetch(config.categoriesDbUrl)
+                    .then(res => res.json())
+                    .then(json => setDbProducts(json));
+
+                fetch(config.categoriesDbUrl)
+                    .then(res => res.json())
+                    .then(json => setCategories(json));
+        
+        
+            }, []);
+
     return ( 
     <div>
         { productsFound !== undefined && <div>
@@ -71,7 +98,10 @@ function EditProduct() {
         <label>Pilt</label> <br/>
         <input ref={imageRef} defaultValue={productsFound.image} type="text"/><br/>
         <label>Kategooria</label> <br/>
-        <input ref={categoryRef} defaultValue={productsFound.category} type="text"/><br/>
+        <select ref={categoryRef} defaultValue={productsFound.category} >
+            {categories.map((element, i) => <option key={i} >{element.name}</option>)}
+        </select> <br /> <br />
+        {/* <input ref={categoryRef} defaultValue={productsFound.category} type="text"/><br/> */}
         <label>Kirjeldus</label> <br/>
         <input ref={descriptionRef} defaultValue={productsFound.description} type="text"/><br/>
         <label>Aktiivsus</label> <br/>
